@@ -1,13 +1,18 @@
 $(document).ready(function () {
+    // Al cargar la página, se inicializan los movimientos desde el almacenamiento local
+    var movimientos = JSON.parse(localStorage.getItem("movimientos")) || [];
+
     // Función para confirmar el depósito
     $("#confirmarDeposito").click(function () {
         var saldoActual = parseFloat($("#saldo").text());
         var deposito = parseFloat($("#montoDeposito").val());
         if (!isNaN(deposito) && deposito > 0) {
-            $("#saldo").text((saldoActual + deposito).toFixed(2));
+            var nuevoSaldo = saldoActual + deposito;
+            $("#saldo").text(nuevoSaldo.toFixed(2));
+            guardarMovimiento("Depósito", new Date().toISOString(), deposito);
             // Animación de incremento de saldo
             $("#saldo").animate(
-                { num: (saldoActual + deposito).toFixed(2) },
+                { num: nuevoSaldo.toFixed(2) },
                 {
                     duration: 1000,
                     step: function (num) {
@@ -15,6 +20,8 @@ $(document).ready(function () {
                     },
                 }
             );
+            // Actualizar la tabla de movimientos
+            actualizarTablaMovimientos();
             // Cerrar el modal
             $("#modalDepositar").modal("hide");
         } else {
@@ -31,10 +38,12 @@ $(document).ready(function () {
             transferencia > 0 &&
             transferencia <= saldoActual
         ) {
-            $("#saldo").text((saldoActual - transferencia).toFixed(2));
+            var nuevoSaldo = saldoActual - transferencia;
+            $("#saldo").text(nuevoSaldo.toFixed(2));
+            guardarMovimiento("Transferencia", new Date().toISOString(), -transferencia);
             // Animación de decremento de saldo
             $("#saldo").animate(
-                { num: (saldoActual - transferencia).toFixed(2) },
+                { num: nuevoSaldo.toFixed(2) },
                 {
                     duration: 1000,
                     step: function (num) {
@@ -42,64 +51,47 @@ $(document).ready(function () {
                     },
                 }
             );
+            // Actualizar la tabla de movimientos
+            actualizarTablaMovimientos();
             // Cerrar el modal
             $("#modalTransferir").modal("hide");
         } else {
             alert("Ingrese una cantidad válida o saldo insuficiente.");
         }
     });
+
+    // Función para guardar un movimiento en el almacenamiento local
+    function guardarMovimiento(tipo, fecha, monto) {
+        movimientos.push({ tipo: tipo, fecha: fecha, monto: monto });
+        localStorage.setItem("movimientos", JSON.stringify(movimientos));
+    }
+
+    // Función para actualizar la tabla de movimientos
+    function actualizarTablaMovimientos() {
+        var tbody = $("#movimientos-body");
+        tbody.empty(); // Limpiar el contenido anterior de la tabla
+        movimientos.forEach(function (movimiento) {
+            var row = $("<tr>");
+            $("<td>").text(movimiento.tipo).appendTo(row);
+            $("<td>").text(movimiento.fecha).appendTo(row);
+            $("<td>").text(movimiento.monto).appendTo(row);
+            var iconClass = movimiento.tipo === "Depósito" ? "text-success fas fa-arrow-down" : "text-secondary fas fa-arrow-up";
+            var icon = $("<i>").addClass("arrow-icon rotated-icon " + iconClass);
+            $("<td>").append(icon).appendTo(row);
+            row.appendTo(tbody);
+        });
+    }
+
+    // Al cargar la página, se actualiza la tabla de movimientos y el saldo
+    actualizarTablaMovimientos();
+    $("#saldo").text(calcularSaldoActual());
+
+    // Función para calcular el saldo actual sumando todos los montos de los movimientos
+    function calcularSaldoActual() {
+        var saldo = 0;
+        movimientos.forEach(function (movimiento) {
+            saldo += parseFloat(movimiento.monto);
+        });
+        return saldo.toFixed(2);
+    }
 });
-
-// Arreglo de datos de ejemplo
-const movimientos = [
-    { tipo: "Depósito", fecha: "2024-03-29", monto: "$" + 100 },
-    { tipo: "Transferencia", fecha: "2024-03-28", monto: "$" + -50 },
-    { tipo: "Depósito", fecha: "2024-03-27", monto: "$" + 200 },
-];
-
-// Función para llenar la tabla con datos dinámicos
-function llenarTabla() {
-    const tbody = document.getElementById("movimientos-body");
-    tbody.innerHTML = ""; // Limpiar el contenido anterior de la tabla
-    movimientos.forEach((movimiento) => {
-        const row = document.createElement("tr");
-        const tipoColumn = document.createElement("td");
-        tipoColumn.textContent = movimiento.tipo;
-        row.appendChild(tipoColumn);
-
-        const fechaColumn = document.createElement("td");
-        fechaColumn.textContent = movimiento.fecha;
-        row.appendChild(fechaColumn);
-
-        const montoColumn = document.createElement("td");
-        montoColumn.textContent = movimiento.monto;
-        row.appendChild(montoColumn);
-
-        // Agregar icono según el tipo de movimiento
-        const iconColumn = document.createElement("td");
-        const icon = document.createElement("i");
-        icon.classList.add("arrow-icon");
-        if (movimiento.tipo === "Depósito") {
-            icon.classList.add(
-                "text-success",
-                "rotated-icon",
-                "fas",
-                "fa-arrow-down"
-            );
-        } else {
-            icon.classList.add(
-                "text-secondary",
-                "rotated-icon",
-                "fas",
-                "fa-arrow-up"
-            );
-        }
-        iconColumn.appendChild(icon);
-        row.appendChild(iconColumn);
-
-        tbody.appendChild(row);
-    });
-}
-
-// Llenar la tabla al cargar la página
-llenarTabla();
