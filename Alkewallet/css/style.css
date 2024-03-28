@@ -1,0 +1,57 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+}
+
+.bg {
+  /* La imagen de fondo se usa en la clase 'bg' */
+  background-image: url("/img/fondo-login.jpg");
+
+  /* Controla la altura de tu imagen de fondo */
+  height: 100%;
+
+  /* Centra y escala la imagen perfectamente */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.rotated-icon {
+  transform: rotate(45deg);
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: column;
+}
+.navbar-nav .nav-link {
+  margin-bottom: 10px; /* Espacio entre elementos del menú */
+}
+
+.wallet-container {
+  background-color: #f8f9fa; /* Color de fondo */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+  padding: 20px; /* Espaciado interno */
+  margin-top: 100px; /* Espaciado superior */
+}
+
+.navbar-custom {
+  background: linear-gradient(
+    to right,
+    #667eea,
+    #764ba2
+  ); /* Gradiente de color del menu */
+}
+
+/* Estilos para los botones de la wallet */
+.wallet-container button {
+  margin-top: 10px; /* Espaciado superior entre botones */
+  margin-right: 10px; /* Espaciado derecho entre botones */
+}
+
+.compartir-btn {
+  border-radius: 25px; /* Bordes redondeados */
+  padding: 10px 20px; /* Espaciado interno */
+}

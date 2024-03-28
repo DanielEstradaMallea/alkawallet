@@ -55,51 +55,51 @@ const movimientos = [
     { tipo: "Depósito", fecha: "2024-03-29", monto: "$" + 100 },
     { tipo: "Transferencia", fecha: "2024-03-28", monto: "$" + -50 },
     { tipo: "Depósito", fecha: "2024-03-27", monto: "$" + 200 },
-  ];
+];
 
-  // Función para llenar la tabla con datos dinámicos
-  function llenarTabla() {
+// Función para llenar la tabla con datos dinámicos
+function llenarTabla() {
     const tbody = document.getElementById("movimientos-body");
     tbody.innerHTML = ""; // Limpiar el contenido anterior de la tabla
     movimientos.forEach((movimiento) => {
-      const row = document.createElement("tr");
-      const tipoColumn = document.createElement("td");
-      tipoColumn.textContent = movimiento.tipo;
-      row.appendChild(tipoColumn);
+        const row = document.createElement("tr");
+        const tipoColumn = document.createElement("td");
+        tipoColumn.textContent = movimiento.tipo;
+        row.appendChild(tipoColumn);
 
-      const fechaColumn = document.createElement("td");
-      fechaColumn.textContent = movimiento.fecha;
-      row.appendChild(fechaColumn);
+        const fechaColumn = document.createElement("td");
+        fechaColumn.textContent = movimiento.fecha;
+        row.appendChild(fechaColumn);
 
-      const montoColumn = document.createElement("td");
-      montoColumn.textContent = movimiento.monto;
-      row.appendChild(montoColumn);
+        const montoColumn = document.createElement("td");
+        montoColumn.textContent = movimiento.monto;
+        row.appendChild(montoColumn);
 
-      // Agregar icono según el tipo de movimiento
-      const iconColumn = document.createElement("td");
-      const icon = document.createElement("i");
-      icon.classList.add("arrow-icon");
-      if (movimiento.tipo === "Depósito") {
-        icon.classList.add(
-          "text-success",
-          "rotated-icon",
-          "fas",
-          "fa-arrow-down"
-        );
-      } else {
-        icon.classList.add(
-          "text-secondary",
-          "rotated-icon",
-          "fas",
-          "fa-arrow-up"
-        );
-      }
-      iconColumn.appendChild(icon);
-      row.appendChild(iconColumn);
+        // Agregar icono según el tipo de movimiento
+        const iconColumn = document.createElement("td");
+        const icon = document.createElement("i");
+        icon.classList.add("arrow-icon");
+        if (movimiento.tipo === "Depósito") {
+            icon.classList.add(
+                "text-success",
+                "rotated-icon",
+                "fas",
+                "fa-arrow-down"
+            );
+        } else {
+            icon.classList.add(
+                "text-secondary",
+                "rotated-icon",
+                "fas",
+                "fa-arrow-up"
+            );
+        }
+        iconColumn.appendChild(icon);
+        row.appendChild(iconColumn);
 
-      tbody.appendChild(row);
+        tbody.appendChild(row);
     });
-  }
+}
 
-  // Llenar la tabla al cargar la página
-  llenarTabla();
+// Llenar la tabla al cargar la página
+llenarTabla();

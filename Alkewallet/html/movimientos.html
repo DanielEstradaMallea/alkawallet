@@ -10,50 +10,14 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-
-    <!-- Incluir Bulma CSS -->
-
     <!-- Incluir FontAwesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
-  <body background="/img/fondo-login.jpg" style="opacity: 0.9">
-    <style>
-      .rotated-icon {
-        transform: rotate(45deg);
-      }
-
-      .navbar-nav {
-        display: flex;
-        flex-direction: column;
-      }
-      .navbar-nav .nav-link {
-        margin-bottom: 10px; /* Espacio entre elementos del menú */
-      }
-
-      .wallet-container {
-        background-color: #f8f9fa; /* Color de fondo */
-        border-radius: 10px; /* Bordes redondeados */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
-        padding: 20px; /* Espaciado interno */
-        margin-top: 100px; /* Espaciado superior */
-      }
-
-      .navbar-custom {
-        background: linear-gradient(
-          to right,
-          #667eea,
-          #764ba2
-        ); /* Gradiente de color */
-      }
-
-      /* Estilos para los botones */
-      .wallet-container button {
-        margin-top: 10px; /* Espaciado superior entre botones */
-      }
-    </style>
+  <body class="bg">
     <header>
       <!-- Barra de navegación de alke wallet -->
       <nav class="navbar navbar-dark bg-dark fixed-top">
@@ -124,11 +88,12 @@
                     Configura tus tarjetas
                   </a>
                   <ul class="dropdown-menu dropdown-menu-dark">
-                    <li><a class="dropdown-item" href="#">Bloqueo de tarjetas</a></li>
+                    <li>
+                      <a class="dropdown-item" href="#">Bloqueo de tarjetas</a>
+                    </li>
                     <li>
                       <a class="dropdown-item" href="#">Cambio de pin pass</a>
                     </li>
-                    
                   </ul>
                 </li>
                 <hr />
@@ -140,16 +105,129 @@
       </nav>
     </header>
 
+    <!-- Modal para depósito -->
+    <div
+      class="modal fade"
+      id="modalDepositar"
+      tabindex="-1"
+      aria-labelledby="modalDepositarLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalDepositarLabel">
+              Depositar dinero
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="montoDeposito" class="form-label"
+                  >Monto a depositar</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="montoDeposito"
+                  placeholder="Ingrese el monto a depositar"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="confirmarDeposito"
+            >
+              Depositar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal para Transferencia -->
+    <div
+      class="modal fade"
+      id="modalTransferir"
+      tabindex="-1"
+      aria-labelledby="modalTransferirLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTransferirLabel">
+              Transferir dinero
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="montoTransferencia" class="form-label"
+                  >Monto a transferir</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="montoTransferencia"
+                  placeholder="Ingrese el monto a transferir"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="confirmarTransferencia"
+            >
+              Transferir
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Div para saldo y operaciones -->
     <div class="container mt-5">
       <div class="row justify-content-center">
-        <div class="col-md-4 text-center wallet-container" style="background-color: #1a29cd;">
+        <div
+          class="col-md-4 text-center wallet-container"
+          style="background-color: #1a29cd"
+        >
           <div class="row">
             <div class="col">
               <h5>Billetera digital</h5>
               <p>****8075</p>
             </div>
-           
 
             <div class="row mt-3">
               <h3>Saldo de la cuenta:</h3>
