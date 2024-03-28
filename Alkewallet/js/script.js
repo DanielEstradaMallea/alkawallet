@@ -67,17 +67,21 @@ $(document).ready(function () {
     }
 
     // Función para actualizar la tabla de movimientos
+  
+
     function actualizarTablaMovimientos() {
         var tbody = $("#movimientos-body");
         tbody.empty(); // Limpiar el contenido anterior de la tabla
         movimientos.forEach(function (movimiento) {
             var row = $("<tr>");
-            $("<td>").text(movimiento.tipo).appendTo(row);
-            $("<td>").text(movimiento.fecha).appendTo(row);
-            $("<td>").text(movimiento.monto).appendTo(row);
             var iconClass = movimiento.tipo === "Depósito" ? "text-success fas fa-arrow-down" : "text-secondary fas fa-arrow-up";
             var icon = $("<i>").addClass("arrow-icon rotated-icon " + iconClass);
             $("<td>").append(icon).appendTo(row);
+            $("<td>").text(movimiento.tipo).appendTo(row);
+             // Formatea la fecha como "dd-mm-aaaa"
+             var fecha = new Date(movimiento.fecha).toLocaleDateString('es-ES');
+             $("<td>").text(fecha).appendTo(row);
+            $("<td>").text(movimiento.monto).appendTo(row);
             row.appendTo(tbody);
         });
     }
@@ -95,3 +99,5 @@ $(document).ready(function () {
         return saldo.toFixed(2);
     }
 });
+
+
