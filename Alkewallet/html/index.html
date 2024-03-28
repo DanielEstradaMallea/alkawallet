@@ -29,6 +29,16 @@
         margin-top: 100px; /* Espaciado superior */
       }
 
+      .wallet-container button {
+        margin-top: 10px; /* Espaciado superior entre botones */
+        margin-right: 10px; /* Espaciado derecho entre botones */
+      }
+
+      .compartir-btn {
+        border-radius: 25px; /* Bordes redondeados */
+        padding: 10px 20px; /* Espaciado interno */
+      }
+
       .navbar-custom {
         background: linear-gradient(
           to right,
@@ -91,12 +101,15 @@
                   >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="movimientos.html"
+                  <a
+                    class="nav-link"
+                    aria-current="page"
+                    href="movimientos.html"
                     >Saldos y Movimientos</a
                   >
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Transferencias</a>
+                  <a class="nav-link" href="index.html">Transferencias</a>
                 </li>
                 <li class="nav-item dropdown">
                   <a
@@ -243,23 +256,40 @@
     <!-- Div para saldo y operaciones -->
     <div class="container mt-5">
       <div class="row justify-content-center">
-        <div class="col-md-6 text-center wallet-container">
-          <h3>Saldo de la cuenta: $ <span id="saldo">1000</span> CLP</h3>
-          <button
-            class="btn btn-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#modalDepositar"
-          >
-            Depositar
-          </button>
-          <button
-            class="btn btn-secondary"
-            data-bs-toggle="modal"
-            data-bs-target="#modalTransferir"
-          >
-            Transferir
-          </button>
+        <div class="col-md-4 text-center wallet-container">
+          <div class="row">
+            <div class="col">
+              <h5>Billetera digital</h5>
+              <p>****8075</p>
+            </div>
+            <div class="col">
+              <button class="btn btn-info compartir-btn">Compartir</button>
+            </div>
+
+            <div class="row mt-3">
+              <h3>Saldo de la cuenta:</h3>
+              <h3>$ <span id="saldo">1000</span> CLP</h3>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+    <!-- Div para llenar la tabla con los datos en el arreglo -->
+    <div class="container mt-5">
+      <div class="row justify-content-center d-flex">
+        <table class="table table-bordered table-hover mt-4">
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Fecha</th>
+              <th>Monto</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="movimientos-body">
+            <!-- Aquí se llenarán los datos dinámicamente -->
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -280,58 +310,6 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-      $(document).ready(function () {
-        // Función para confirmar el depósito
-        $("#confirmarDeposito").click(function () {
-          var saldoActual = parseFloat($("#saldo").text());
-          var deposito = parseFloat($("#montoDeposito").val());
-          if (!isNaN(deposito) && deposito > 0) {
-            $("#saldo").text((saldoActual + deposito).toFixed(2));
-            // Animación de incremento de saldo
-            $("#saldo").animate(
-              { num: (saldoActual + deposito).toFixed(2) },
-              {
-                duration: 1000,
-                step: function (num) {
-                  this.innerHTML = num.toFixed(2);
-                },
-              }
-            );
-            // Cerrar el modal
-            $("#modalDepositar").modal("hide");
-          } else {
-            alert("Ingrese una cantidad válida.");
-          }
-        });
-
-        // Función para confirmar la transferencia
-        $("#confirmarTransferencia").click(function () {
-          var saldoActual = parseFloat($("#saldo").text());
-          var transferencia = parseFloat($("#montoTransferencia").val());
-          if (
-            !isNaN(transferencia) &&
-            transferencia > 0 &&
-            transferencia <= saldoActual
-          ) {
-            $("#saldo").text((saldoActual - transferencia).toFixed(2));
-            // Animación de decremento de saldo
-            $("#saldo").animate(
-              { num: (saldoActual - transferencia).toFixed(2) },
-              {
-                duration: 1000,
-                step: function (num) {
-                  this.innerHTML = num.toFixed(2);
-                },
-              }
-            );
-            // Cerrar el modal
-            $("#modalTransferir").modal("hide");
-          } else {
-            alert("Ingrese una cantidad válida o saldo insuficiente.");
-          }
-        });
-      });
-    </script>
+    <script src="/js/script.js"></script>
   </body>
 </html>
