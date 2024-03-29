@@ -28,7 +28,7 @@ Características:
 Tecnologías utilizadas:
 - HTML5
 - CSS3 (Bootstrap, Bulma)
-- JavaScript (jQuery)
+- JavaScript (jQuery, generación de datos dinámicos, persistencia de datos)
 - Frameworks y bibliotecas de front-end (Bootstrap, Bulma)
 - Iconos de Bootstrap Icons
 - Gestión de dependencias a través de CDNs
