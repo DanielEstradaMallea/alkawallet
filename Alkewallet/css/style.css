@@ -30,7 +30,12 @@ html {
 }
 
 .wallet-container {
-  background-color: #f8f9fa; /* Color de fondo */
+  height: 300px; /* Altura del contenedor */
+  background: linear-gradient(
+    to bottom,
+    #0a1aa9 50%,
+    #ffffff 50%
+  ); /* División del gradiente */
   border-radius: 10px; /* Bordes redondeados */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
   padding: 20px; /* Espaciado interno */
@@ -54,4 +59,18 @@ html {
 .compartir-btn {
   border-radius: 25px; /* Bordes redondeados */
   padding: 10px 20px; /* Espaciado interno */
+}
+
+.scrollable-table {
+  max-height: 350px; /* Altura máxima del contenedor */
+  overflow-y: auto; /* Agregar scroll vertical cuando sea necesario */
+}
+
+.custom-table {
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.custom-table tbody tr {
+  transition: background-color 0.3s; /* Transición de color de fondo al pasar el ratón */
 }

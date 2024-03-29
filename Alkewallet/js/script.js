@@ -67,22 +67,39 @@ $(document).ready(function () {
     }
 
     // Función para actualizar la tabla de movimientos
-  
+
 
     function actualizarTablaMovimientos() {
         var tbody = $("#movimientos-body");
         tbody.empty(); // Limpiar el contenido anterior de la tabla
+        movimientos.sort(function (a, b) {
+            return new Date(b.fecha) - new Date(a.fecha);
+        }); //ordenamos las transacciones desde la mas reciente a la mas antigua
+
         movimientos.forEach(function (movimiento) {
             var row = $("<tr>");
             var iconClass = movimiento.tipo === "Depósito" ? "text-success fas fa-arrow-down" : "text-secondary fas fa-arrow-up";
             var icon = $("<i>").addClass("arrow-icon rotated-icon " + iconClass);
             $("<td>").append(icon).appendTo(row);
             $("<td>").text(movimiento.tipo).appendTo(row);
-             // Formatea la fecha como "dd-mm-aaaa"
-             var fecha = new Date(movimiento.fecha).toLocaleDateString('es-ES');
-             $("<td>").text(fecha).appendTo(row);
-            $("<td>").text(movimiento.monto).appendTo(row);
+            // Formatea la fecha como "dd-mm-aaaa"
+            var fecha = new Date(movimiento.fecha).toLocaleString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+            $("<td>").text(fecha).appendTo(row);
+            // Formatear el monto y agregar color según el tipo de transacción
+            var monto = parseFloat(movimiento.monto).toFixed(2);
+            var montoFormateado = (movimiento.tipo === "Depósito" ? "+" : "-") + "$" + Math.abs(monto);
+            var montoColor = movimiento.tipo === "Depósito" ? "green" : "red";
+            $("<td>").text(montoFormateado).css("color", montoColor).appendTo(row);
             row.appendTo(tbody);
+
+            // Agregar evento click a la fila para mostrar detalles en el modal
+            row.click(function () {
+                $("#modalTipo").text(movimiento.tipo);
+                $("#modalFecha").text(fecha);
+                $("#modalMonto").text(Math.abs(parseFloat(movimiento.monto))); // Valor absoluto del monto
+                $("#detalleModal").modal("show");
+            });
         });
     }
 
@@ -99,5 +116,7 @@ $(document).ready(function () {
         return saldo.toFixed(2);
     }
 });
+
+
 
 

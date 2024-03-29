@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parallax Animation Test</title>
+  <style>
+    /* Estilos para el contenedor principal */
+    .parallax-container {
+      position: relative;
+      overflow: hidden;
+      height: 300px; /* Altura del contenedor */
+      margin-top: 50px; /* Espaciado superior */
+    }
+
+    /* Estilos para la animación de fondo */
+    .parallax-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+      background: linear-gradient(to right, #4579e2, #3461c1, #2d55aa);
+      animation: move-forever 12s linear infinite;
+    }
+
+    @keyframes move-forever {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Estilos para el contenido */
+    .content-container {
+      background-color: rgba(255, 255, 255, 0.8); /* Color de fondo */
+      border-radius: 10px; /* Bordes redondeados */
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Sombra */
+      padding: 20px; /* Espaciado interno */
+      text-align: center; /* Centrar texto */
+      position: relative; /* Posicionamiento relativo para que el contenido esté sobre el fondo */
+      z-index: 1; /* Para colocar el contenido sobre el fondo */
+    }
+  </style>
+</head>
+<body>
+
+<div class="parallax-container">
+  <div class="parallax-bg"></div> <!-- Fondo animado -->
+  <div class="content-container">
+    <h1>Contenido</h1>
+    <p>Este es un contenido de prueba.</p>
+  </div>
+</div>
+
+</body>
+</html>
