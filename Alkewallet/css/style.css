@@ -74,3 +74,61 @@ html {
 .custom-table tbody tr {
   transition: background-color 0.3s; /* Transición de color de fondo al pasar el ratón */
 }
+
+/* Estilos para la tabla de contactos */
+#contactosTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+#contactosTable th,
+#contactosTable td {
+  padding: 10px;
+  text-align: left;
+}
+
+#contactosTable th {
+  background-color: #343a40;
+  color: #fff;
+}
+
+#contactosTable tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s;
+}
+
+#contactosTable tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#contactosTable tbody tr:hover td {
+  transform: scale(1.05);
+  transition: transform 0.3s;
+}
+
+/* Estilos para los botones de editar y eliminar */
+#contactosTable .btn {
+  padding: 5px 10px;
+}
+
+#contactosTable .btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+#contactosTable .btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+body {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+body.fade-out {
+  opacity: 0;
+}
+

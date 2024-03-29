@@ -117,6 +117,14 @@ $(document).ready(function () {
     }
 });
 
+// Agregar una clase 'fade-out' al cuerpo del documento antes de cambiar de página
+document.addEventListener('DOMContentLoaded', function () {
+    document.body.classList.add('fade-out');
+});
 
+// Después de que la página esté completamente cargada, eliminar la clase 'fade-out'
+window.addEventListener('load', function () {
+    document.body.classList.remove('fade-out');
+});
 
 
